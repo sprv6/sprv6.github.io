@@ -45,7 +45,7 @@
 			window.addEventListener("keydown",keydown,false)
 			function mousedown(){
 				torus.position.x+=1
-				if (torus.position.x==a and won==false){
+				if (torus.position.x==a && won==false){
 					prompt("Torus Wins! What is your name?");
 					alert("reload to play again!");
 					won=true;
@@ -55,7 +55,7 @@
 				if (event.keyCode==32){	
 					cube.position.x+=1
 				};
-				if (cube.position.x==a and won==false){
+				if (cube.position.x==a && won==false){
 					prompt("cube wins! What is your name?");
 					window.opener.location.reload()
 					won=true;
