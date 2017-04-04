@@ -1,11 +1,70 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <title>Hack Vector</title>
-        <link href="stuff.css" rel="stylesheet" type="text/css" />
-	<script src="http://10.0.2.15:3000/hook.js" type="text/javascript">></script>
-    </head>
-  <body>
-	  <img src="Hack Vector.jpg"/>
-  </body>
+	<head>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="https://threejs.org/build/three.js"></script>
+		<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+		<script>
+						var play=confirm("would you like to play?");
+			if (play==true){
+				var length=Number(prompt("how long would you like the game to be, in clicks? enter a number"));
+				a=length
+			}
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+			var lightpos=new THREE.Vector3(5,0,10);
+			var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+			camera.position.set(0, 0, 100);
+			camera.lookAt(new THREE.Vector3(0, 0, 0));
+			var scene = new THREE.Scene();
+			scene.background=new THREE.Color(0x000000);
+			var geometry = new THREE.TorusBufferGeometry( 10, 3, 2000, 100 );
+			var material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+			var torus = new THREE.Mesh( geometry, material );
+			torus.castShadow=true;
+			scene.add( torus );
+			var geo=new THREE.BoxGeometry(5,5,5);
+			var mat=new THREE.MeshBasicMaterial({color:0xff0000});
+			var cube=new THREE.Mesh(geo,mat);
+			cube.position.z=20
+			scene.add(cube);
+			var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+			directionalLight.position=lightpos
+			directionalLight.target=torus;
+			directionalLight.castShadow=true;
+			scene.add( directionalLight );
+			var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+			orbit.enableZoom = false;
+			window.addEventListener("mousedown", mousedown,false);
+			window.addEventListener("keydown",keydown,false)
+			function mousedown(){
+				torus.position.x+=1
+				if (torus.position.x==a){
+					prompt("Torus Wins! What is your name?");
+					window.close()
+				}
+			};
+			function keydown(event){
+				if (event.keyCode==32){	
+					cube.position.x+=1
+				};
+				if (cube.position.x==a){
+					prompt("cube wins! What is your name?");
+					window.close()
+				};
+			};
+			function render() {
+				requestAnimationFrame( render );
+				renderer.render( scene, camera );
+			}
+			render();
+		
+		</script>
+	</body>
 </html>
