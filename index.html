@@ -15,6 +15,7 @@
 				var length=Number(prompt("how long would you like the game to be, in clicks? enter a number"));
 				a=length
 			}
+			won=false;
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
@@ -45,18 +46,20 @@
 			window.addEventListener("keydown",keydown,false)
 			function mousedown(){
 				torus.position.x+=1
-				if (torus.position.x==a){
+				if (torus.position.x==a and won==false){
 					prompt("Torus Wins! What is your name?");
-					window.opener.location.reload()
+					alert("reload to play again!");
+					won=true;
 				}
 			};
 			function keydown(event){
 				if (event.keyCode==32){	
 					cube.position.x+=1
 				};
-				if (cube.position.x==a){
+				if (cube.position.x==a and won==false){
 					prompt("cube wins! What is your name?");
 					window.opener.location.reload()
+					won=true;
 				};
 			};
 			function render() {
