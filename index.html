@@ -42,7 +42,7 @@
 			var orbit = new THREE.OrbitControls( camera, renderer.domElement );
 			orbit.enableZoom = false;
 			window.addEventListener("mousedown", mousedown,false);
-			window.addEventListener("keydown",keydown,false)
+			window.addEventListener("keyup",keyup,false)
 			function mousedown(){
 				torus.position.x+=1
 				if (torus.position.x==a && won==false){
@@ -51,7 +51,7 @@
 					won=true;
 				}
 			};
-			function keydown(event){
+			function keyup(event){
 				if (event.keyCode==32){	
 					cube.position.x+=1
 				};
