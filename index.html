@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<title>Click Race 1.1</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script src="https://threejs.org/build/three.js"></script>
+		<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+		<script>
+						var play=confirm("would you like to play?");
+			if (play==true){
+				var length=Number(prompt("how long would you like the game to be, in clicks? enter a number"));
+				a=length
+			}
+			var won=false;
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+			var lightpos=new THREE.Vector3(5,0,10);
+			var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+			camera.position.set(-50, 35, 100);
+			camera.lookAt(new THREE.Vector3(0, 0, 0));
+			var scene = new THREE.Scene();
+			scene.background=new THREE.Color(0x000000);
+			var geometry = new THREE.TorusBufferGeometry( 10, 3, 2000, 100 );
+			var material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+			var torus = new THREE.Mesh( geometry, material );
+			torus.castShadow=true;
+			scene.add( torus );
+			var geo=new THREE.BoxGeometry(5,5,5);
+			var mat=new THREE.MeshBasicMaterial({color:0xff0000});
+			var cube=new THREE.Mesh(geo,mat);
+			cube.position.z=20
+			scene.add(cube);
+			var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+			directionalLight.position=lightpos
+			directionalLight.target=torus;
+			directionalLight.castShadow=true;
+			scene.add( directionalLight );
+			var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+			orbit.enableZoom = false;
+			window.addEventListener("mousedown", mousedown,false);
+			window.addEventListener("keyup",keyup,false)
+			function mousedown(){
+				torus.position.x+=1
+				if (torus.position.x==a && won==false){
+					prompt("Torus Wins! What is your name?");
+					alert("reload to play again!");
+					won=true;
+				}
+			};
+			function keyup(event){
+				if (event.keyCode==32){	
+					cube.position.x+=1
+				};
+				if (cube.position.x==a && won==false){
+					prompt("cube wins! What is your name?");
+					alert("reload to play again!");
+					won=true;
+				};
+			};
+			function render() {
+				requestAnimationFrame( render );
+				renderer.render( scene, camera );
+			}
+			render();
+
+		</script>
+	</body>
+</html>
